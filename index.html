@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Doctor Visit Storybook 📚✨</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">🏥 My Doctor Visit Storybook 📚</h1>
+            <p class="subtitle">Turn your doctor visit into a magical story!</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Recording Section -->
+            <section class="recording-section" id="recordingSection">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🎤 Step 1: Tell Me About Your Visit!</h2>
+                        <p>Click the microphone and tell me what happened at the doctor's office</p>
+                    </div>
+                    <div class="recording-controls">
+                        <button id="recordBtn" class="record-btn">
+                            <span class="mic-icon">🎤</span>
+                            <span class="btn-text">Start Recording</span>
+                        </button>
+                        <div class="recording-status" id="recordingStatus">
+                            <div class="pulse-animation" id="pulseAnimation" style="display: none;"></div>
+                            <span id="statusText">Ready to record!</span>
+                        </div>
+                    </div>
+                    <div class="audio-preview" id="audioPreview" style="display: none;">
+                        <h3>🎵 Your Recording:</h3>
+                        <audio controls id="audioPlayback"></audio>
+                        <button id="retryBtn" class="retry-btn">🔄 Record Again</button>
+                        <button id="processBtn" class="process-btn">✨ Make My Storybook!</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Processing Section -->
+            <section class="processing-section" id="processingSection" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🪄 Creating Your Magical Story...</h2>
+                        <p>Our story wizards are working hard to make your visit special!</p>
+                    </div>
+                    <div class="loading-animation">
+                        <div class="magic-wand">🪄</div>
+                        <div class="sparkles">
+                            <span>✨</span>
+                            <span>⭐</span>
+                            <span>🌟</span>
+                            <span>💫</span>
+                        </div>
+                    </div>
+                    <div class="processing-text" id="processingText">
+                        Listening to your story...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Storybook Display -->
+            <section class="storybook-section" id="storybookSection" style="display: none;">
+                <div class="storybook-container">
+                    <div class="storybook-header">
+                        <h2>📖 Your Amazing Doctor Visit Story!</h2>
+                        <div class="story-controls">
+                            <button id="prevPageBtn" class="page-btn">⬅️ Previous</button>
+                            <span class="page-counter" id="pageCounter">Page 1 of 1</span>
+                            <button id="nextPageBtn" class="page-btn">Next ➡️</button>
+                        </div>
+                    </div>
+                    <div class="storybook-pages" id="storybookPages">
+                        <!-- Story pages will be dynamically generated here -->
+                    </div>
+                    <div class="story-actions">
+                        <button id="saveStoryBtn" class="action-btn save-btn">💾 Save My Story</button>
+                        <button id="newStoryBtn" class="action-btn new-btn">🆕 Create New Story</button>
+                        <button id="shareStoryBtn" class="action-btn share-btn">📤 Share Story</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with ❤️ to help kids remember their brave doctor visits!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
