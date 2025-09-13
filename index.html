@@ -5,23 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Doctor Visit Storybook 📚✨</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Borel:wght@400&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1 class="title">🏥 My Doctor Visit Storybook 📚</h1>
-            <p class="subtitle">Turn your doctor visit into a magical story!</p>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
+        <!-- Design Layout Matching Image -->
+        <div class="design-layout">
+            <!-- Top Stars -->
+            <div class="top-stars">
+                <svg class="star-outline star-1" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                </svg>
+                <svg class="star-outline star-2" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                </svg>
+                <svg class="star-outline star-3" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                </svg>
+                <svg class="star-outline star-4" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <!-- Left Side Content -->
+            <div class="left-content">
+                <!-- Left Star -->
+                <svg class="left-star-outline" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="#88d8c0" stroke-width="2"/>
+                </svg>
+                
+                <!-- Title -->
+                <h1 class="storywell-title">storywell</h1>
+                
+                <!-- Description -->
+                <p class="description-text">
+                    <span class="italic-text">storywell</span> was created to help kids process diagnoses– to, instead of telling kids that it'll all be okay, to let them understand and overcome challenges they'll face blah blah blah
+                </p>
+                
+                <!-- Start Recording Button -->
+                <button class="start-recording-btn">
+                    <span class="mic-icon">🎤</span>
+                    Start Recording
+                </button>
+            </div>
+            
+            <!-- Right Side - Wishing Well -->
+            <div class="right-content">
+                <div class="wishing-well-container">
+                    <!-- Well Structure -->
+                    <svg class="wishing-well-svg" viewBox="0 0 400 500">
+                        <!-- Roof -->
+                        <path d="M50 150 L350 150 L300 50 L100 50 Z" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                        <path d="M60 140 L340 140 L290 60 L110 60 Z" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                        
+                        <!-- Roof Support Beams -->
+                        <line x1="120" y1="60" x2="120" y2="140" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="160" y1="60" x2="160" y2="140" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="200" y1="60" x2="200" y2="140" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="240" y1="60" x2="240" y2="140" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="280" y1="60" x2="280" y2="140" stroke="#4a90e2" stroke-width="2"/>
+                        
+                        <!-- Well Body (Cylinder) -->
+                        <ellipse cx="200" cy="450" rx="120" ry="30" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                        <line x1="80" y1="450" x2="80" y2="200" stroke="#4a90e2" stroke-width="3"/>
+                        <line x1="320" y1="450" x2="320" y2="200" stroke="#4a90e2" stroke-width="3"/>
+                        <ellipse cx="200" cy="200" rx="120" ry="30" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                        
+                        <!-- Stone Pattern -->
+                        <line x1="80" y1="220" x2="320" y2="220" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="250" x2="320" y2="250" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="280" x2="320" y2="280" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="310" x2="320" y2="310" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="340" x2="320" y2="340" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="370" x2="320" y2="370" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="400" x2="320" y2="400" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="80" y1="430" x2="320" y2="430" stroke="#4a90e2" stroke-width="1"/>
+                        
+                        <!-- Vertical Stone Lines -->
+                        <line x1="120" y1="200" x2="120" y2="450" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="160" y1="200" x2="160" y2="450" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="240" y1="200" x2="240" y2="450" stroke="#4a90e2" stroke-width="1"/>
+                        <line x1="280" y1="200" x2="280" y2="450" stroke="#4a90e2" stroke-width="1"/>
+                        
+                        <!-- Crank Handle -->
+                        <circle cx="280" cy="180" r="25" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                        <line x1="255" y1="180" x2="305" y2="180" stroke="#4a90e2" stroke-width="4"/>
+                        <line x1="280" y1="155" x2="280" y2="205" stroke="#4a90e2" stroke-width="2"/>
+                        
+                        <!-- Bucket -->
+                        <ellipse cx="320" cy="350" rx="25" ry="8" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="295" y1="350" x2="295" y2="370" stroke="#4a90e2" stroke-width="2"/>
+                        <line x1="345" y1="350" x2="345" y2="370" stroke="#4a90e2" stroke-width="2"/>
+                        <ellipse cx="320" cy="370" rx="25" ry="8" fill="none" stroke="#4a90e2" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Functional Interface (Hidden by default) -->
+        <main class="main-content" id="functionalInterface" style="display: none;">
             <!-- Step 1: Recording Section -->
             <section class="recording-section" id="recordingSection">
                 <div class="card">
                     <div class="card-header">
-                        <h2>🎤 Step 1: Tell Me About Your Visit!</h2>
+                        <h2>🎤 Tell Me About Your Visit!</h2>
                         <p>Click the microphone and tell me what happened at the doctor's office</p>
                     </div>
                     <div class="recording-controls">
@@ -88,6 +176,7 @@
             </section>
         </main>
 
+        
         <!-- Footer -->
         <footer class="footer">
             <p>Made with ❤️ to help kids remember their brave doctor visits!</p>

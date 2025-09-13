@@ -14,6 +14,11 @@ class DoctorStorybookApp {
     }
 
     initializeElements() {
+        // New layout elements
+        this.startRecordingBtn = document.querySelector('.start-recording-btn');
+        this.functionalInterface = document.getElementById('functionalInterface');
+        this.designLayout = document.querySelector('.design-layout');
+        
         // Recording elements
         this.recordBtn = document.getElementById('recordBtn');
         this.recordingStatus = document.getElementById('recordingStatus');
@@ -41,6 +46,7 @@ class DoctorStorybookApp {
     }
 
     setupEventListeners() {
+        this.startRecordingBtn.addEventListener('click', () => this.startJourney());
         this.recordBtn.addEventListener('click', () => this.toggleRecording());
         this.retryBtn.addEventListener('click', () => this.retryRecording());
         this.processBtn.addEventListener('click', () => this.processAudio());
@@ -360,6 +366,13 @@ class DoctorStorybookApp {
         }
     }
 
+    startJourney() {
+        // Hide the design layout and show functional interface
+        this.designLayout.style.display = 'none';
+        this.functionalInterface.style.display = 'block';
+        this.recordingSection.style.display = 'block';
+    }
+
     createNewStory() {
         // Reset the application
         this.currentPage = 0;
@@ -367,9 +380,10 @@ class DoctorStorybookApp {
         this.transcribedText = '';
         this.audioChunks = [];
         
-        // Hide storybook and show recording section
+        // Show design layout and hide functional interface
+        this.designLayout.style.display = 'flex';
+        this.functionalInterface.style.display = 'none';
         this.storybookSection.style.display = 'none';
-        this.recordingSection.style.display = 'block';
         this.audioPreview.style.display = 'none';
         
         // Reset UI

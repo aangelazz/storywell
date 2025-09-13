@@ -7,50 +7,198 @@
 
 body {
     font-family: 'Comic Neue', cursive;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #7fcdcd 50%, #81c3d7 75%, #86b7df 100%);
     min-height: 100vh;
     color: #333;
     overflow-x: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #4a90e2, transparent),
+        radial-gradient(2px 2px at 40px 70px, #4a90e2, transparent),
+        radial-gradient(1px 1px at 90px 40px, #4a90e2, transparent),
+        radial-gradient(1px 1px at 130px 80px, #4a90e2, transparent),
+        radial-gradient(2px 2px at 160px 30px, #4a90e2, transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Header Styles */
-.header {
-    text-align: center;
-    margin-bottom: 40px;
-    animation: fadeInDown 1s ease-out;
+/* Design Layout Matching Exact Image */
+.design-layout {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    overflow: hidden;
 }
 
-.title {
-    font-family: 'Fredoka One', cursive;
-    font-size: 3rem;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    margin-bottom: 10px;
-    animation: bounce 2s infinite;
+/* Top Stars */
+.top-stars {
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    z-index: 10;
 }
 
-.subtitle {
+.star-outline {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+}
+
+.star-1 {
+    top: 0;
+    right: 200px;
+    width: 35px;
+    height: 35px;
+}
+
+.star-2 {
+    top: 40px;
+    right: 150px;
+    width: 45px;
+    height: 45px;
+}
+
+.star-3 {
+    top: 80px;
+    right: 80px;
+    width: 50px;
+    height: 50px;
+}
+
+.star-4 {
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+/* Left Content Area */
+.left-content {
+    flex: 1;
+    padding: 80px 60px;
+    position: relative;
+    z-index: 5;
+    max-width: 50%;
+}
+
+.left-star-outline {
+    position: absolute;
+    top: 120px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    z-index: 1;
+}
+
+.storywell-title {
+    font-family: 'Borel', cursive;
+    font-size: 5rem;
+    color: #2c5aa0;
+    margin: 40px 0 30px 0;
+    line-height: 0.9;
+    position: relative;
+    z-index: 2;
+}
+
+.description-text {
+    font-family: 'Comic Neue', cursive;
     font-size: 1.3rem;
-    color: #f0f8ff;
-    font-weight: 400;
+    color: #2c5aa0;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    max-width: 450px;
 }
 
-/* Card Styles */
+.italic-text {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.start-recording-btn {
+    background: linear-gradient(45deg, #88d8c0, #7fb3d3);
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(127, 179, 211, 0.3);
+    font-family: 'Comic Neue', cursive;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.start-recording-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(127, 179, 211, 0.4);
+}
+
+.mic-icon {
+    font-size: 1.3rem;
+}
+
+/* Right Content Area */
+.right-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    max-width: 50%;
+}
+
+.wishing-well-container {
+    position: relative;
+    z-index: 3;
+}
+
+.wishing-well-svg {
+    width: 350px;
+    height: 400px;
+    transform: translateX(50px);
+}
+
+
+/* Card Styles for Functional Interface */
 .card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(44, 90, 160, 0.15);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 2px solid rgba(255,255,255,0.6);
     animation: slideInUp 0.8s ease-out;
+    position: relative;
 }
 
 .card-header {
@@ -61,13 +209,13 @@ body {
 .card-header h2 {
     font-family: 'Fredoka One', cursive;
     font-size: 2rem;
-    color: #4a5568;
+    color: #2c5aa0;
     margin-bottom: 10px;
 }
 
 .card-header p {
     font-size: 1.1rem;
-    color: #666;
+    color: #4a6fa5;
 }
 
 /* Recording Controls */
@@ -79,7 +227,7 @@ body {
 }
 
 .record-btn {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    background: linear-gradient(45deg, #7fb3d3, #95c5e1);
     border: none;
     border-radius: 50px;
     padding: 20px 40px;
@@ -91,12 +239,12 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    box-shadow: 0 5px 15px rgba(127, 179, 211, 0.4);
 }
 
 .record-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+    box-shadow: 0 8px 25px rgba(127, 179, 211, 0.6);
 }
 
 .record-btn.recording {
@@ -156,12 +304,12 @@ body {
 }
 
 .retry-btn {
-    background: linear-gradient(45deg, #ffa726, #ffb74d);
+    background: linear-gradient(45deg, #a8d8ea, #b8e6b8);
     color: white;
 }
 
 .process-btn {
-    background: linear-gradient(45deg, #66bb6a, #81c784);
+    background: linear-gradient(45deg, #88d8c0, #a8e6cf);
     color: white;
 }
 
@@ -239,7 +387,7 @@ body {
 }
 
 .page-btn {
-    background: linear-gradient(45deg, #42a5f5, #64b5f6);
+    background: linear-gradient(45deg, #7fb3d3, #95c5e1);
     border: none;
     border-radius: 25px;
     padding: 10px 20px;
@@ -251,7 +399,7 @@ body {
 
 .page-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(66, 165, 245, 0.4);
+    box-shadow: 0 5px 15px rgba(127, 179, 211, 0.4);
 }
 
 .page-btn:disabled {
@@ -353,17 +501,17 @@ body {
 }
 
 .save-btn {
-    background: linear-gradient(45deg, #ab47bc, #ba68c8);
+    background: linear-gradient(45deg, #a8d8ea, #b8e6b8);
     color: white;
 }
 
 .new-btn {
-    background: linear-gradient(45deg, #26c6da, #4dd0e1);
+    background: linear-gradient(45deg, #88d8c0, #a8e6cf);
     color: white;
 }
 
 .share-btn {
-    background: linear-gradient(45deg, #66bb6a, #81c784);
+    background: linear-gradient(45deg, #7fb3d3, #95c5e1);
     color: white;
 }
 
@@ -377,7 +525,7 @@ body {
     text-align: center;
     margin-top: 40px;
     padding: 20px;
-    color: #f0f8ff;
+    color: #2c5aa0;
     font-size: 1rem;
 }
 
@@ -448,6 +596,15 @@ body {
     }
 }
 
+@keyframes float {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -468,12 +625,38 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding: 15px;
+    .design-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
     }
     
-    .title {
-        font-size: 2.2rem;
+    .left-content {
+        max-width: 100%;
+        padding: 40px 30px;
+    }
+    
+    .right-content {
+        max-width: 100%;
+        padding: 20px;
+    }
+    
+    .storywell-title {
+        font-size: 3.5rem;
+    }
+    
+    .wishing-well-svg {
+        width: 280px;
+        height: 320px;
+        transform: none;
+    }
+    
+    .top-stars {
+        right: 20px;
+    }
+    
+    .container {
+        padding: 15px;
     }
     
     .card {
