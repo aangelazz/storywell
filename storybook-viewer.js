@@ -1,5 +1,3 @@
-// storybook-viewer.js
-
 class StorybookViewer {
     constructor() {
       this.stories = [];
@@ -7,11 +5,9 @@ class StorybookViewer {
       this.currentPage = 0;
   
       // Elements for library page (storybook.html)
-      this.storiesList = document.getElementById('storiesList');
       this.storiesGrid = document.getElementById('storiesGrid');
   
       // Elements for reader page (storybook-view.html)
-      this.storyViewer = document.getElementById('storyViewer');
       this.storyTitle = document.getElementById('storyTitle');
       this.storybookPages = document.getElementById('storybookPages');
       this.prevPageBtn = document.getElementById('prevPageBtn');
@@ -22,16 +18,15 @@ class StorybookViewer {
     }
   
     // ======================
-    // LIBRARY PAGE FUNCTIONS
+    // Library Page
     // ======================
-  
     loadStories() {
       const savedStories = localStorage.getItem('doctorVisitStories');
       this.stories = savedStories ? JSON.parse(savedStories) : [];
     }
   
     displayStoriesList() {
-      if (!this.storiesGrid) return; // Only run on library page
+      if (!this.storiesGrid) return;
   
       if (this.stories.length === 0) {
         this.storiesGrid.innerHTML = `
@@ -47,7 +42,7 @@ class StorybookViewer {
         return;
       }
   
-      const storiesHTML = this.stories.map((story, index) => `
+      this.storiesGrid.innerHTML = this.stories.map((story, index) => `
         <div class="story-card" onclick="window.location.href='storybook-view.html?id=${index}'">
           <div class="story-card-header">
             <h3>${story.title}</h3>
@@ -62,10 +57,11 @@ class StorybookViewer {
           <div class="story-stats">${story.pages.length} pages</div>
         </div>
       `).join('');
-  
-      this.storiesGrid.innerHTML = storiesHTML;
     }
   
+    // ======================
+    // Reader Page
+    // ======================
     loadStoryById(id) {
       if (id < 0 || id >= this.stories.length) return;
       this.currentStory = this.stories[id];
@@ -133,7 +129,6 @@ class StorybookViewer {
   
     shareStory() {
       if (!this.currentStory) return;
-  
       const storyText = this.currentStory.pages.map(
         page => `${page.title}\n${page.content}`
       ).join('\n\n');
@@ -156,8 +151,8 @@ class StorybookViewer {
   
       const index = this.stories.indexOf(this.currentStory);
       this.stories.splice(index, 1);
-  
       localStorage.setItem('doctorVisitStories', JSON.stringify(this.stories));
+  
       alert("Story deleted successfully!");
       window.location.href = 'storybook.html';
     }
@@ -166,20 +161,17 @@ class StorybookViewer {
   // ======================
   // INIT
   // ======================
-  
   document.addEventListener('DOMContentLoaded', () => {
     const viewer = new StorybookViewer();
     viewer.loadStories();
   
-    // If we're on storybook.html (library)
     if (viewer.storiesGrid) {
-      viewer.displayStoriesList();
+      viewer.displayStoriesList(); // storybook.html
     }
   
-    // If we're on storybook-view.html (reader)
     const params = new URLSearchParams(window.location.search);
     const storyId = parseInt(params.get('id'));
     if (!isNaN(storyId) && viewer.storybookPages) {
-      viewer.loadStoryById(storyId);
+      viewer.loadStoryById(storyId); // storybook-view.html
     }
   });
