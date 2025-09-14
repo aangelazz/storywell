@@ -196,7 +196,7 @@ body::before {
 
 .wishing-well-container {
     position: relative;
-    width: 70%;
+    width: 90%;
     height: 60%;
     z-index: 3;
     display: flex;
@@ -274,6 +274,7 @@ body::before {
 
 .card-header {
     text-align: center;
+    height: 100px;
     margin-bottom: 30px;
 }
 
@@ -311,6 +312,12 @@ body::before {
     align-items: center;
     gap: 15px;
     box-shadow: 0 5px 15px rgba(127, 179, 211, 0.4);
+}
+
+.your-stories-img {
+    height: 80%;           
+    display: block;
+    margin: 0 auto 30px;  
 }
 
 .record-btn:hover {
@@ -598,6 +605,14 @@ body::before {
     padding: 20px;
     color: #2c5aa0;
     font-size: 1rem;
+}
+
+.storybook-collect-img {
+    width: 100%;          /* spans the full container width */
+    max-width: 800px;     /* optional: cap so it’s not too huge */
+    height: auto;
+    display: block;
+    margin: 0 auto 30px;  /* center it with space below */
 }
 
 /* Back Button Styles */
