@@ -155,6 +155,7 @@ body::before {
     border: none;
     border-radius: 30px;
     padding: 15px 30px;
+    margin: 30px;
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
@@ -165,6 +166,13 @@ body::before {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.start-recording-btn,
+.storybook-btn {
+    width: 100%;               /* take full width of .left-content */
+    max-width: 300px;          /* optional cap */
+    margin: 0;                 /* remove auto centering */
 }
 
 .start-recording-btn:hover {
@@ -204,6 +212,14 @@ body::before {
     width: 83%;
 }
 
+.buttons-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* align buttons to the left */
+    gap: 20px;                /* space between buttons */
+    margin-top: 20px;         /* optional spacing above buttons */
+}
+
 .storybook-btn {
     background: linear-gradient(45deg, #88d8c0, #7fb3d3); /* Initial gradient */
     border: none;
@@ -211,6 +227,7 @@ body::before {
     padding: 15px 30px;
     font-size: 1.2rem; 
     font-weight: bold;
+    width: 300px;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -219,9 +236,7 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px auto; /* Center the button */
-    position: relative;
-    z-index: 5; /* Ensure it appears above the well */
+    z-index: 5;
 }
 
 .storybook-btn:hover {
