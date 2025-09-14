@@ -14,11 +14,6 @@ class DoctorStorybookApp {
     }
 
     initializeElements() {
-        // New layout elements
-        this.startRecordingBtn = document.querySelector('.start-recording-btn');
-        this.functionalInterface = document.getElementById('functionalInterface');
-        this.designLayout = document.querySelector('.design-layout');
-        
         // Recording elements
         this.recordBtn = document.getElementById('recordBtn');
         this.recordingStatus = document.getElementById('recordingStatus');
@@ -120,7 +115,6 @@ class DoctorStorybookApp {
     async startRecording() {
         console.log('Starting recording...');
         try {
-            // Request microphone permission
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             console.log('Microphone access granted');
             
@@ -142,14 +136,12 @@ class DoctorStorybookApp {
                     this.audioPreview.style.display = 'block';
                 }
                 
-                // Stop all tracks to release microphone
                 stream.getTracks().forEach(track => track.stop());
             };
 
             this.mediaRecorder.start();
             console.log('MediaRecorder started');
             
-            // Start speech recognition if available
             if (this.recognition) {
                 try {
                     this.recognition.start();
@@ -185,64 +177,31 @@ class DoctorStorybookApp {
         if (this.isRecording) {
             this.recordBtn.classList.add('recording');
             this.recordBtn.innerHTML = '<span class="mic-icon">🔴</span><span class="btn-text">Stop Recording</span>';
-            this.statusText.textContent = 'Recording... Tell me about your doctor visit!';
-            this.pulseAnimation.style.display = 'block';
+            if (this.statusText) this.statusText.textContent = 'Recording... Tell me about your doctor visit!';
+            if (this.pulseAnimation) this.pulseAnimation.style.display = 'block';
         } else {
             this.recordBtn.classList.remove('recording');
             this.recordBtn.innerHTML = '<span class="mic-icon">🎤</span><span class="btn-text">Start Recording</span>';
-            this.statusText.textContent = 'Recording finished! Listen to your recording below.';
-            this.pulseAnimation.style.display = 'none';
+            if (this.statusText) this.statusText.textContent = 'Recording finished! Listen to your recording below.';
+            if (this.pulseAnimation) this.pulseAnimation.style.display = 'none';
         }
     }
 
     retryRecording() {
-        this.audioPreview.style.display = 'none';
+        if (this.audioPreview) this.audioPreview.style.display = 'none';
         this.transcribedText = '';
-        this.statusText.textContent = 'Ready to record again!';
+        if (this.statusText) this.statusText.textContent = 'Ready to record again!';
     }
 
     async processAudio() {
         this.showProcessingSection();
         await this.simulateProcessingSteps();
-      
-        const storyText = this.transcribedText.trim() || this.getSampleStoryText();
-      
-        try {
-          const response = await fetch("https://api.dedalus.ai/v1/generate", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer dsk_live_a1558a05cea5_fe8d50293a3e6b84059040513fb21f8e"
-            },
-            body: JSON.stringify({
-              prompt: `Turn this doctor's visit transcript into a children's storybook with multiple pages, 
-                       each with a title, content, and emoji illustration. Format as JSON.`,
-              input: storyText,
-              max_tokens: 800
-            })
-          });
-      
-          const data = await response.json();
-      
-          if (data.pages) {
-            this.storyPages = data.pages;
-          } else {
-            console.warn("Dedalus API did not return structured pages, falling back.");
-            this.storyPages = this.createStoryPages(storyText);
-          }
-      
-          this.displayStorybook();
-      
-        } catch (err) {
-          console.error("Dedalus API error:", err);
-          this.storyPages = this.createStoryPages(storyText); // fallback
-          this.displayStorybook();
-        }
-      }
+        this.generateStorybook();
+    }
 
     showProcessingSection() {
-        this.recordingSection.style.display = 'none';
-        this.processingSection.style.display = 'block';
+        if (this.recordingSection) this.recordingSection.style.display = 'none';
+        if (this.processingSection) this.processingSection.style.display = 'block';
     }
 
     async simulateProcessingSteps() {
@@ -255,19 +214,14 @@ class DoctorStorybookApp {
         ];
 
         for (let i = 0; i < steps.length; i++) {
-            this.processingText.textContent = steps[i];
+            if (this.processingText) this.processingText.textContent = steps[i];
             await new Promise(resolve => setTimeout(resolve, 1500));
         }
     }
 
     generateStorybook() {
-        // Use transcribed text if available, otherwise use sample text
         const storyText = this.transcribedText.trim() || this.getSampleStoryText();
-        
-        // Transform medical text into kid-friendly story
         this.storyPages = this.createStoryPages(storyText);
-        
-        // Display the storybook
         this.displayStorybook();
     }
 
@@ -276,18 +230,15 @@ class DoctorStorybookApp {
     }
 
     createStoryPages(text) {
-        // Simple story transformation logic
         const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
         const pages = [];
 
-        // Title page
         pages.push({
             title: "My Amazing Doctor Visit Adventure! 🏥",
             content: "Today I went on a special adventure to visit my doctor. Let me tell you all about it!",
             illustration: "🏥👨‍⚕️👩‍⚕️"
         });
 
-        // Transform medical terms to kid-friendly language
         const transformations = {
             'stethoscope': 'magic listening tool 🩺',
             'blood pressure': 'arm squeeze machine',
@@ -303,24 +254,20 @@ class DoctorStorybookApp {
             'weight': 'how much I weigh'
         };
 
-        // Process each sentence
         sentences.forEach((sentence, index) => {
             let transformedSentence = sentence.trim();
             
-            // Apply transformations
             Object.keys(transformations).forEach(medical => {
                 const friendly = transformations[medical];
                 const regex = new RegExp(medical, 'gi');
                 transformedSentence = transformedSentence.replace(regex, friendly);
             });
 
-            // Add encouraging language
             if (transformedSentence.toLowerCase().includes('brave') || 
                 transformedSentence.toLowerCase().includes('good')) {
                 transformedSentence += " I was such a brave little hero! 🦸‍♂️";
             }
 
-            // Create page with illustration
             const illustrations = ['🩺', '📏', '⚖️', '👂', '👄', '❤️', '🌟', '🎉', '🏆'];
             const illustration = illustrations[index % illustrations.length];
 
@@ -331,7 +278,6 @@ class DoctorStorybookApp {
             });
         });
 
-        // Ending page
         pages.push({
             title: "The End of My Adventure! 🎉",
             content: "I finished my doctor visit and felt proud of how brave I was. The health heroes helped me stay strong and healthy. What an amazing adventure!",
@@ -342,8 +288,8 @@ class DoctorStorybookApp {
     }
 
     displayStorybook() {
-        this.processingSection.style.display = 'none';
-        this.storybookSection.style.display = 'block';
+        if (this.processingSection) this.processingSection.style.display = 'none';
+        if (this.storybookSection) this.storybookSection.style.display = 'block';
         
         this.renderStoryPages();
         this.currentPage = 0;
@@ -351,16 +297,26 @@ class DoctorStorybookApp {
     }
 
     renderStoryPages() {
+        if (!this.storybookPages) return;
+        
         this.storybookPages.innerHTML = '';
         
         this.storyPages.forEach((page, index) => {
             const pageElement = document.createElement('div');
             pageElement.className = 'story-page';
+            
+            let illustrationHTML;
+            if (page.illustration && page.illustration.startsWith('http')) {
+                illustrationHTML = `<img src="${page.illustration}" alt="${page.title}" class="story-image" />`;
+            } else {
+                illustrationHTML = `<div class="story-emoji">${page.illustration}</div>`;
+            }
+            
             pageElement.innerHTML = `
                 <div class="page-number">Page ${index + 1}</div>
                 <div class="story-content">
                     <h3 class="story-title">${page.title}</h3>
-                    <div class="story-illustration">${page.illustration}</div>
+                    <div class="story-illustration">${illustrationHTML}</div>
                     <p class="story-text">${page.content}</p>
                 </div>
             `;
@@ -369,14 +325,18 @@ class DoctorStorybookApp {
     }
 
     showCurrentPage() {
+        if (!this.storybookPages) return;
+        
         const pages = this.storybookPages.querySelectorAll('.story-page');
         pages.forEach((page, index) => {
             page.classList.toggle('active', index === this.currentPage);
         });
 
-        this.pageCounter.textContent = `Page ${this.currentPage + 1} of ${this.storyPages.length}`;
-        this.prevPageBtn.disabled = this.currentPage === 0;
-        this.nextPageBtn.disabled = this.currentPage === this.storyPages.length - 1;
+        if (this.pageCounter) {
+            this.pageCounter.textContent = `Page ${this.currentPage + 1} of ${this.storyPages.length}`;
+        }
+        if (this.prevPageBtn) this.prevPageBtn.disabled = this.currentPage === 0;
+        if (this.nextPageBtn) this.nextPageBtn.disabled = this.currentPage === this.storyPages.length - 1;
     }
 
     previousPage() {
@@ -400,6 +360,19 @@ class DoctorStorybookApp {
             pages: this.storyPages
         };
 
+        // Save to localStorage for the storybook viewer
+        let savedStories = [];
+        const existingStories = localStorage.getItem('doctorVisitStories');
+        if (existingStories) {
+            savedStories = JSON.parse(existingStories);
+        }
+        
+        savedStories.push(storyData);
+        localStorage.setItem('doctorVisitStories', JSON.stringify(savedStories));
+        
+        console.log('Story saved to localStorage:', storyData);
+
+        // Also create downloadable file
         const dataStr = JSON.stringify(storyData, null, 2);
         const dataBlob = new Blob([dataStr], { type: 'application/json' });
         const url = URL.createObjectURL(dataBlob);
@@ -421,7 +394,6 @@ class DoctorStorybookApp {
                 text: storyText
             });
         } else {
-            // Fallback: copy to clipboard
             const storyText = this.storyPages.map(page => `${page.title}\n${page.content}`).join('\n\n');
             navigator.clipboard.writeText(storyText).then(() => {
                 this.showSuccess('Story copied to clipboard! You can paste it anywhere to share! 📋✨');
@@ -430,33 +402,41 @@ class DoctorStorybookApp {
     }
 
     startJourney() {
-        // Hide the design layout and show functional interface (for index.html)
         if (this.designLayout) this.designLayout.style.display = 'none';
         if (this.functionalInterface) this.functionalInterface.style.display = 'block';
         if (this.recordingSection) this.recordingSection.style.display = 'block';
     }
 
     createNewStory() {
-        // Reset the application
+        console.log('Creating new story...');
+        
         this.currentPage = 0;
         this.storyPages = [];
         this.transcribedText = '';
         this.audioChunks = [];
+        this.isRecording = false;
         
-        // Show design layout and hide functional interface
-        this.designLayout.style.display = 'flex';
-        this.functionalInterface.style.display = 'none';
-        this.storybookSection.style.display = 'none';
-        this.audioPreview.style.display = 'none';
+        if (this.designLayout && this.functionalInterface) {
+            this.designLayout.style.display = 'flex';
+            this.functionalInterface.style.display = 'none';
+        } else {
+            if (this.storybookSection) this.storybookSection.style.display = 'none';
+            if (this.processingSection) this.processingSection.style.display = 'none';
+            if (this.recordingSection) this.recordingSection.style.display = 'block';
+        }
         
-        // Reset UI
-        this.statusText.textContent = 'Ready to record your new story!';
-        this.recordBtn.classList.remove('recording');
-        this.recordBtn.innerHTML = '<span class="mic-icon">🎤</span><span class="btn-text">Start Recording</span>';
+        if (this.audioPreview) this.audioPreview.style.display = 'none';
+        if (this.statusText) this.statusText.textContent = 'Ready to record your new story!';
+        if (this.recordBtn) {
+            this.recordBtn.classList.remove('recording');
+            this.recordBtn.innerHTML = '<span class="mic-icon">🎤</span><span class="btn-text">Start Recording</span>';
+        }
+        if (this.pulseAnimation) this.pulseAnimation.style.display = 'none';
+        
+        console.log('New story setup complete');
     }
 
     showSuccess(message) {
-        // Create a temporary success message
         const successDiv = document.createElement('div');
         successDiv.style.cssText = `
             position: fixed;
@@ -479,7 +459,6 @@ class DoctorStorybookApp {
     }
 
     showError(message) {
-        // Create a temporary error message
         const errorDiv = document.createElement('div');
         errorDiv.style.cssText = `
             position: fixed;
@@ -500,25 +479,6 @@ class DoctorStorybookApp {
             errorDiv.remove();
         }, 4000);
     }
-
-    initializeHomePage() {
-        // Setup event listeners and UI for the home page
-        this.startRecordingBtn.addEventListener('click', () => this.startJourney());
-    }
-
-    initializeStorybookPage() {
-        // Setup event listeners and UI for the storybook page
-        this.renderStoryPages();
-        this.currentPage = 0;
-        this.showCurrentPage();
-
-        this.prevPageBtn.addEventListener('click', () => this.previousPage());
-        this.nextPageBtn.addEventListener('click', () => this.nextPage());
-        this.saveStoryBtn.addEventListener('click', () => this.saveStory());
-        this.newStoryBtn.addEventListener('click', () => this.createNewStory());
-        this.shareStoryBtn.addEventListener('click', () => this.shareStory());
-    }
-    
 }
 
 // Test microphone availability
@@ -547,6 +507,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Initialize the application when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, testing microphone access...');
     testMicrophoneAccess();
@@ -557,13 +518,4 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Make app globally accessible for debugging
     window.storybookApp = app;
-
-    const currentPage = window.location.pathname;
-
-    if (currentPage.includes('index.html') || currentPage === '/') {
-        app.initializeHomePage(); // Initialize home page functionality
-    } else if (currentPage.includes('storybook.html')) {
-        app.initializeStorybookPage(); // Initialize storybook functionality
-    }
 });
-
