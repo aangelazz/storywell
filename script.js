@@ -219,8 +219,42 @@ class DoctorStorybookApp {
         }
     }
 
-    generateStorybook() {
+    async generateStorybook() {
         const storyText = this.transcribedText.trim() || this.getSampleStoryText();
+        
+        console.log('Generating AI story from text:', storyText);
+        
+        // Try AI generation first
+        if (window.aiStoryGenerator) {
+            try {
+                if (this.processingText) {
+                    this.processingText.textContent = 'Asking our AI storyteller to create your story...';
+                }
+                
+                const aiPages = await window.aiStoryGenerator.generateKidFriendlyStory(storyText);
+                
+                if (aiPages && aiPages.length > 0) {
+                    // Convert AI response to our page format
+                    this.storyPages = aiPages.map(page => ({
+                        title: page.title,
+                        content: page.content,
+                        illustration: page.illustration
+                    }));
+                    console.log('AI story generated successfully:', this.storyPages);
+                    this.displayStorybook();
+                    return;
+                }
+            } catch (error) {
+                console.error('AI generation failed, using fallback:', error);
+                if (this.processingText) {
+                    this.processingText.textContent = 'Creating your story with our backup system...';
+                }
+            }
+        } else {
+            console.log('AI generator not available, using fallback');
+        }
+        
+        // Fallback to local processing
         this.storyPages = this.createStoryPages(storyText);
         this.displayStorybook();
     }
@@ -518,4 +552,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Make app globally accessible for debugging
     window.storybookApp = app;
+});
+
+// Initialize AI when DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AI if available
+    if (typeof AIStoryGenerator !== 'undefined' && typeof CLAUDE_API_CONFIG !== 'undefined') {
+        try {
+            window.aiStoryGenerator = new AIStoryGenerator(CLAUDE_API_CONFIG.apiKey);
+            console.log('✅ AI Story Generator initialized successfully');
+        } catch (error) {
+            console.error('❌ Failed to initialize AI Story Generator:', error);
+        }
+    } else {
+        console.log('⚠️ AI Story Generator not available - check if claude-ai.js is loaded');
+    }
 });
