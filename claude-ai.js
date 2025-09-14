@@ -23,14 +23,15 @@ class AIStoryGenerator {
                 // Local development
                 backendUrl = 'http://localhost:3001';
             } else if (window.location.hostname === 'storywell.one') {
-                // Production - using Vercel subdomain
-                backendUrl = 'https://api.storywell.one';
+                // Production - replace with your actual Vercel URL
+                backendUrl = 'https://storywell.vercel.app';
             } else {
-                // GitHub Pages or other deployment - use your actual Vercel URL
-                backendUrl = 'https://storywell-eta.vercel.app/api';
+                // GitHub Pages or other deployment
+                backendUrl = 'https://storywell.vercel.app';
             }
             
             console.log('🔗 Backend URL:', backendUrl);
+            console.log('🔍 Full API endpoint:', `${backendUrl}/generate-story`);
             
             const response = await fetch(`${backendUrl}/generate-story`, {
                 method: 'POST',
