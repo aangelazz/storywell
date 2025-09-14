@@ -1,6 +1,6 @@
 // Claude API Configuration
 const CLAUDE_API_CONFIG = {
-    apiKey: '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',
+    apiKey: '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',
     apiUrl: 'https://api.anthropic.com/v1/messages',
     model: 'claude-3-haiku-20240307',
     maxTokens: 2000
@@ -13,34 +13,51 @@ class AIStoryGenerator {
     }
 
     async generateKidFriendlyStory(medicalText) {
-        const prompt = this.createKidFriendlyPrompt(medicalText);
-        
         try {
-            const response = await fetch(CLAUDE_API_CONFIG.apiUrl, {
+            console.log('🤖 Calling backend API...');
+            
+            // Determine backend URL based on environment
+            let backendUrl;
+            
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                // Local development
+                backendUrl = 'http://localhost:3001';
+            } else if (window.location.hostname === 'storywell.one') {
+                // Production - using Vercel subdomain
+                backendUrl = 'https://api.storywell.one';
+            } else {
+                // GitHub Pages or other deployment - use your actual Vercel URL
+                backendUrl = 'https://storywell-eta.vercel.app/api';
+            }
+            
+            console.log('🔗 Backend URL:', backendUrl);
+            
+            const response = await fetch(`${backendUrl}/generate-story`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': this.apiKey,
-                    'anthropic-version': '2023-06-01'
                 },
                 body: JSON.stringify({
-                    model: CLAUDE_API_CONFIG.model,
-                    max_tokens: CLAUDE_API_CONFIG.maxTokens,
-                    messages: [{
-                        role: 'user',
-                        content: prompt
-                    }]
+                    medicalText: medicalText
                 })
             });
 
             if (!response.ok) {
-                throw new Error(`Claude API error: ${response.status}`);
+                throw new Error(`Backend API error: ${response.status}`);
             }
 
             const data = await response.json();
-            return this.parseStoryResponse(data.content[0].text);
+            
+            if (data.success && data.pages && data.pages.length > 0) {
+                console.log('✅ AI story generated via backend!', data.pages.length, 'pages');
+                return data.pages;
+            } else {
+                throw new Error('Invalid response from backend');
+            }
+            
         } catch (error) {
-            console.error('AI story generation failed:', error);
+            console.error('❌ Backend API failed:', error);
+            console.log('🔄 Falling back to enhanced local processing...');
             // Fallback to local processing
             return this.createFallbackStory(medicalText);
         }
