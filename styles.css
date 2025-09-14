@@ -5,6 +5,16 @@
     box-sizing: border-box;
 }
 
+
+.storywell-logo {
+    display: block;
+    width: 500px; /* Adjust size to match mockup */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto 30px auto; /* Center the logo and add spacing below */
+    position: relative;
+    z-index: 2;
+}
+
 body {
     font-family: 'Comic Neue', cursive;
     background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #7fcdcd 50%, #81c3d7 75%, #86b7df 100%);
@@ -178,13 +188,20 @@ body::before {
 
 .wishing-well-container {
     position: relative;
+    width: 70%;
+    height: 80%;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .wishing-well-svg {
-    width: 350px;
-    height: 400px;
     transform: translateX(50px);
+}
+
+.wishing-well-image {
+    width: 100%;
 }
 
 
