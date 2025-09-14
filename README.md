@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🏥 My Doctor Visit Storybook 📚
 
 A magical web application that transforms children's audio recordings from doctor visits into beautiful, interactive digital storybooks!
