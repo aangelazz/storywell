@@ -251,7 +251,36 @@ class DoctorStorybookApp {
             'doctor': 'health hero',
             'nurse': 'caring helper',
             'height': 'how tall I am',
-            'weight': 'how much I weigh'
+            'weight': 'how much I weigh', 
+            'aneurysm': 'monster in my head', 
+            'broken': 'hurting',
+            'hospital': 'healing castle',
+            'clinic': 'wellness station',
+            'surgery': 'fix-it nap',
+            'x-ray': 'see-through picture',
+            'cast': 'super strong arm wrap',
+            'bandage': 'gentle hug for boo-boos',
+            'stitches': 'tiny thread fix',
+            'anesthesia': 'magic sleep dust',
+            'medication': 'helping potion',
+            'allergy': 'body confusion',
+            'infection': 'tiny bug battle',
+            'cavity': 'tooth cave',
+            'dentist': 'tooth helper',
+            'ambulance': 'zoom-zoom help car',
+            'heartbeat': 'drum inside me',
+            'ultrasound': 'baby picture waves',
+            'blood test': 'tiny straw of red juice',
+            'cast removal': 'super wrap goodbye',
+            'recovery': 'healing time',
+            'fever': 'body fire',
+            'cold': 'sneezy chill',
+            'sprain': 'stretchy twist',
+            'therapy': 'body practice time',
+            'wheelchair': 'rolling chair',
+            'crutches': 'super walking sticks',
+            'mask': 'germ shield',
+            'hand sanitizer': 'magic clean gel'
         };
 
         sentences.forEach((sentence, index) => {
@@ -268,7 +297,7 @@ class DoctorStorybookApp {
                 transformedSentence += " I was such a brave little hero! 🦸‍♂️";
             }
 
-            const illustrations = ['🩺', '📏', '⚖️', '👂', '👄', '❤️', '🌟', '🎉', '🏆'];
+            const illustrations = ['🩺', '📏', '⚖️', '👂', '👄', '❤️', '🌟', '🎉', '🏆', '🫁', '👁️'];
             const illustration = illustrations[index % illustrations.length];
 
             pages.push({
@@ -281,7 +310,7 @@ class DoctorStorybookApp {
         pages.push({
             title: "The End of My Adventure! 🎉",
             content: "I finished my doctor visit and felt proud of how brave I was. The health heroes helped me stay strong and healthy. What an amazing adventure!",
-            illustration: "🏆🌟🎉"
+            illustration: "🏆"
         });
 
         return pages;
