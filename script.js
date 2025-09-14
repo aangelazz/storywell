@@ -437,6 +437,25 @@ class DoctorStorybookApp {
             errorDiv.remove();
         }, 4000);
     }
+
+    initializeHomePage() {
+        // Setup event listeners and UI for the home page
+        this.startRecordingBtn.addEventListener('click', () => this.startJourney());
+    }
+
+    initializeStorybookPage() {
+        // Setup event listeners and UI for the storybook page
+        this.renderStoryPages();
+        this.currentPage = 0;
+        this.showCurrentPage();
+
+        this.prevPageBtn.addEventListener('click', () => this.previousPage());
+        this.nextPageBtn.addEventListener('click', () => this.nextPage());
+        this.saveStoryBtn.addEventListener('click', () => this.saveStory());
+        this.newStoryBtn.addEventListener('click', () => this.createNewStory());
+        this.shareStoryBtn.addEventListener('click', () => this.shareStory());
+    }
+    
 }
 
 // Add slide-in animation for notifications
@@ -455,7 +474,15 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Initialize the application when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new DoctorStorybookApp();
+    const currentPage = window.location.pathname;
+
+    if (currentPage.includes('index.html') || currentPage === '/') {
+        const app = new DoctorStorybookApp();
+        app.initializeHomePage(); // Initialize home page functionality
+    } else if (currentPage.includes('storybook.html')) {
+        const app = new DoctorStorybookApp();
+        app.initializeStorybookPage(); // Initialize storybook functionality
+    }
 });
+

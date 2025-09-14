@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storybook 📖</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <main class="main-content" id="storybookSection">
+            <div class="storybook-container">
+                <div class="storybook-header">
+                    <h2>📖 Your Amazing Doctor Visit Story!</h2>
+                    <div class="story-controls">
+                        <button id="prevPageBtn" class="page-btn">⬅️ Previous</button>
+                        <span class="page-counter" id="pageCounter">Page 1 of 1</span>
+                        <button id="nextPageBtn" class="page-btn">Next ➡️</button>
+                    </div>
+                </div>
+                <div class="storybook-pages" id="storybookPages">
+                    <!-- Story pages will be dynamically generated here -->
+                </div>
+                <div class="story-actions">
+                    <button id="saveStoryBtn" class="action-btn save-btn">💾 Save My Story</button>
+                    <button id="newStoryBtn" class="action-btn new-btn">🆕 Create New Story</button>
+                    <button id="shareStoryBtn" class="action-btn share-btn">📤 Share Story</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
