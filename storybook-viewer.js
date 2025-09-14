@@ -49,7 +49,7 @@ class StorybookViewer {
             <span class="story-date">${story.date}</span>
           </div>
           <div class="story-preview">
-            <div class="story-preview-image">📖</div>
+            <div class="story-preview-image"></div>
             <p class="story-preview-text">
               ${story.pages[1]?.content?.substring(0, 100) || 'Your doctor visit story...'}...
             </p>

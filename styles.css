@@ -209,12 +209,12 @@ body::before {
     border: none;
     border-radius: 30px;
     padding: 15px 30px;
-    font-size: 1.2rem; /* Font size matching the design */
+    font-size: 1.2rem; 
     font-weight: bold;
     color: white;
     cursor: pointer;
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    box-shadow: 0 4px 15px rgba(127, 179, 211, 0.3); /* Subtle shadow */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(127, 179, 211, 0.3);
     font-family: 'sans-serif', Verdana;
     display: flex;
     align-items: center;
@@ -631,6 +631,47 @@ body::before {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+.story-card:nth-child(1) {
+    background: linear-gradient(135deg, #88d8c0, #7fb3d3);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.story-card:nth-child(2) {
+    background: linear-gradient(135deg, #a8e6cf, #81c3d7);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.story-card:nth-child(3) {
+    background: linear-gradient(135deg, #86b7df, #7fcdcd);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.story-card:nth-child(4) {
+    background: linear-gradient(135deg, #4CAF50, #1abc9c);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 .story-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -646,15 +687,15 @@ body::before {
 
 .story-card-header h3 {
     font-family: 'sans-serif', Verdana;
-    color: #4a5568;
+    color: #063cb4;
     margin: 0;
     font-size: 1.2rem;
 }
 
 .story-date {
     font-size: 0.9rem;
-    color: #666;
-    background: #f0f8ff;
+    color: #063cb4;
+    background: linear-gradient(135deg, #88d8c0, #7fb3d3);
     padding: 4px 8px;
     border-radius: 10px;
 }
@@ -666,20 +707,23 @@ body::before {
 }
 
 .story-preview-image {
-    font-size: 3rem;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;
+    background: url("images/book.png") no-repeat center center;
+    background-size: contain;
 }
 
 .story-preview-text {
     flex: 1;
-    color: #555;
+    color: #063cb4;
     line-height: 1.4;
     margin: 0;
 }
 
 .story-stats {
     text-align: right;
-    color: #888;
+    color: #063cb4;
     font-size: 0.9rem;
     font-weight: bold;
 }
@@ -688,7 +732,7 @@ body::before {
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #666;
+    color: #063cb4;
 }
 
 .empty-icon {
@@ -700,7 +744,7 @@ body::before {
     font-family: 'sans-serif', Verdana;
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #4a5568;
+    color: #063cb4;
 }
 
 .empty-state p {
