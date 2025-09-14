@@ -203,13 +203,42 @@ class DoctorStorybookApp {
 
     async processAudio() {
         this.showProcessingSection();
-        
-        // Simulate processing steps with delays for better UX
         await this.simulateProcessingSteps();
-        
-        // Generate the storybook
-        this.generateStorybook();
-    }
+      
+        const storyText = this.transcribedText.trim() || this.getSampleStoryText();
+      
+        try {
+          const response = await fetch("https://api.dedalus.ai/v1/generate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer dsk_live_a1558a05cea5_fe8d50293a3e6b84059040513fb21f8e"
+            },
+            body: JSON.stringify({
+              prompt: `Turn this doctor's visit transcript into a children's storybook with multiple pages, 
+                       each with a title, content, and emoji illustration. Format as JSON.`,
+              input: storyText,
+              max_tokens: 800
+            })
+          });
+      
+          const data = await response.json();
+      
+          if (data.pages) {
+            this.storyPages = data.pages;
+          } else {
+            console.warn("Dedalus API did not return structured pages, falling back.");
+            this.storyPages = this.createStoryPages(storyText);
+          }
+      
+          this.displayStorybook();
+      
+        } catch (err) {
+          console.error("Dedalus API error:", err);
+          this.storyPages = this.createStoryPages(storyText); // fallback
+          this.displayStorybook();
+        }
+      }
 
     showProcessingSection() {
         this.recordingSection.style.display = 'none';

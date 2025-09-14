@@ -66,10 +66,6 @@ class StorybookViewer {
       this.storiesGrid.innerHTML = storiesHTML;
     }
   
-    // ======================
-    // READER PAGE FUNCTIONS
-    // ======================
-  
     loadStoryById(id) {
       if (id < 0 || id >= this.stories.length) return;
       this.currentStory = this.stories[id];
