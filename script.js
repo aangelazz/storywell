@@ -43,18 +43,38 @@ class DoctorStorybookApp {
         this.saveStoryBtn = document.getElementById('saveStoryBtn');
         this.newStoryBtn = document.getElementById('newStoryBtn');
         this.shareStoryBtn = document.getElementById('shareStoryBtn');
+
+        // Design layout elements (only on index.html)
+        this.designLayout = document.querySelector('.design-layout');
+        this.functionalInterface = document.getElementById('functionalInterface');
+        this.startRecordingBtn = document.querySelector('.start-recording-btn');
     }
 
     setupEventListeners() {
-        this.startRecordingBtn.addEventListener('click', () => this.startJourney());
-        this.recordBtn.addEventListener('click', () => this.toggleRecording());
-        this.retryBtn.addEventListener('click', () => this.retryRecording());
-        this.processBtn.addEventListener('click', () => this.processAudio());
-        this.prevPageBtn.addEventListener('click', () => this.previousPage());
-        this.nextPageBtn.addEventListener('click', () => this.nextPage());
-        this.saveStoryBtn.addEventListener('click', () => this.saveStory());
-        this.newStoryBtn.addEventListener('click', () => this.createNewStory());
-        this.shareStoryBtn.addEventListener('click', () => this.shareStory());
+        console.log('Setting up event listeners...');
+        console.log('Record button found:', !!this.recordBtn);
+        
+        if (this.recordBtn) {
+            this.recordBtn.addEventListener('click', () => {
+                console.log('Record button clicked!');
+                this.toggleRecording();
+            });
+        } else {
+            console.error('Record button not found!');
+        }
+        
+        if (this.retryBtn) this.retryBtn.addEventListener('click', () => this.retryRecording());
+        if (this.processBtn) this.processBtn.addEventListener('click', () => this.processAudio());
+        if (this.prevPageBtn) this.prevPageBtn.addEventListener('click', () => this.previousPage());
+        if (this.nextPageBtn) this.nextPageBtn.addEventListener('click', () => this.nextPage());
+        if (this.saveStoryBtn) this.saveStoryBtn.addEventListener('click', () => this.saveStory());
+        if (this.newStoryBtn) this.newStoryBtn.addEventListener('click', () => this.createNewStory());
+        if (this.shareStoryBtn) this.shareStoryBtn.addEventListener('click', () => this.shareStory());
+        
+        // Design layout button (only on index.html)
+        if (this.startRecordingBtn) this.startRecordingBtn.addEventListener('click', () => this.startJourney());
+        
+        console.log('Event listeners set up complete');
     }
 
     initializeSpeechRecognition() {
@@ -89,6 +109,7 @@ class DoctorStorybookApp {
     }
 
     async toggleRecording() {
+        console.log('Toggle recording called, isRecording:', this.isRecording);
         if (!this.isRecording) {
             await this.startRecording();
         } else {
@@ -97,8 +118,11 @@ class DoctorStorybookApp {
     }
 
     async startRecording() {
+        console.log('Starting recording...');
         try {
+            // Request microphone permission
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            console.log('Microphone access granted');
             
             this.mediaRecorder = new MediaRecorder(stream);
             this.audioChunks = [];
@@ -111,18 +135,28 @@ class DoctorStorybookApp {
             this.mediaRecorder.onstop = () => {
                 const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
                 const audioUrl = URL.createObjectURL(audioBlob);
-                this.audioPlayback.src = audioUrl;
-                this.audioPreview.style.display = 'block';
+                if (this.audioPlayback) {
+                    this.audioPlayback.src = audioUrl;
+                }
+                if (this.audioPreview) {
+                    this.audioPreview.style.display = 'block';
+                }
                 
                 // Stop all tracks to release microphone
                 stream.getTracks().forEach(track => track.stop());
             };
 
             this.mediaRecorder.start();
+            console.log('MediaRecorder started');
             
             // Start speech recognition if available
             if (this.recognition) {
-                this.recognition.start();
+                try {
+                    this.recognition.start();
+                    console.log('Speech recognition started');
+                } catch (error) {
+                    console.warn('Speech recognition failed to start:', error);
+                }
             }
 
             this.isRecording = true;
@@ -130,7 +164,7 @@ class DoctorStorybookApp {
 
         } catch (error) {
             console.error('Error accessing microphone:', error);
-            this.showError('Could not access microphone. Please check your permissions!');
+            this.showError('Could not access microphone. Please check your permissions and try again!');
         }
     }
 
@@ -367,10 +401,10 @@ class DoctorStorybookApp {
     }
 
     startJourney() {
-        // Hide the design layout and show functional interface
-        this.designLayout.style.display = 'none';
-        this.functionalInterface.style.display = 'block';
-        this.recordingSection.style.display = 'block';
+        // Hide the design layout and show functional interface (for index.html)
+        if (this.designLayout) this.designLayout.style.display = 'none';
+        if (this.functionalInterface) this.functionalInterface.style.display = 'block';
+        if (this.recordingSection) this.recordingSection.style.display = 'block';
     }
 
     createNewStory() {
@@ -458,6 +492,16 @@ class DoctorStorybookApp {
     
 }
 
+// Test microphone availability
+function testMicrophoneAccess() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error('MediaDevices API not supported');
+        return false;
+    }
+    console.log('MediaDevices API supported');
+    return true;
+}
+
 // Add slide-in animation for notifications
 const style = document.createElement('style');
 style.textContent = `
@@ -475,13 +519,21 @@ style.textContent = `
 document.head.appendChild(style);
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, testing microphone access...');
+    testMicrophoneAccess();
+    
+    console.log('Initializing DoctorStorybookApp...');
+    const app = new DoctorStorybookApp();
+    console.log('App initialized:', app);
+    
+    // Make app globally accessible for debugging
+    window.storybookApp = app;
+
     const currentPage = window.location.pathname;
 
     if (currentPage.includes('index.html') || currentPage === '/') {
-        const app = new DoctorStorybookApp();
         app.initializeHomePage(); // Initialize home page functionality
     } else if (currentPage.includes('storybook.html')) {
-        const app = new DoctorStorybookApp();
         app.initializeStorybookPage(); // Initialize storybook functionality
     }
 });
