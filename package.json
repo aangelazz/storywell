@@ -1,0 +1,13 @@
+{
+  "name": "storywell",
+  "version": "1.0.0",
+  "description": "Storywell - AI-powered medical storybooks for children",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}

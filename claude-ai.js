@@ -24,10 +24,10 @@ class AIStoryGenerator {
                 backendUrl = 'http://localhost:3001';
             } else if (window.location.hostname === 'storywell.one') {
                 // Production - replace with your actual Vercel URL
-                backendUrl = 'https://storywell.vercel.app';
+                backendUrl = 'https://storywell.vercel.app/api';
             } else {
                 // GitHub Pages or other deployment
-                backendUrl = 'https://storywell.vercel.app';
+                backendUrl = 'https://storywell.vercel.app/api';
             }
             
             console.log('🔗 Backend URL:', backendUrl);
