@@ -18,21 +18,6 @@
    apiKey: 'sk-ant-your-actual-key-here',
    ```
 
-### 3. Test It!
-
-1. Run your server: `npx http-server`
-2. Go to `app.html`
-3. Record a medical conversation
-4. Watch AI transform it into a kid-friendly story!
-
-## Cost Efficiency 💰
-
-**Your $1000 budget will give you approximately:**
-
-- **50,000+ stories** using Claude Haiku
-- **Cost per story: ~$0.01-0.02**
-- **Perfect for a hackathon demo!**
-
 ## What the AI Does ✨
 
 1. **Preserves Medical Accuracy**: Keeps all facts exactly as the doctor said
