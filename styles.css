@@ -494,8 +494,8 @@ body::before {
 
 /* Story Pages */
 .story-page {
-    background: linear-gradient(135deg, #fff9e6, #fff3cd);
-    border: 3px solid #ffd700;
+    background: linear-gradient(135deg, #fdf6e3, #faeee0); /* soft beige + cream */
+    border: 3px solid #f5c6aa;   /* warm pastel coral border */
     border-radius: 15px;
     padding: 30px;
     margin: 20px 0;
@@ -504,6 +504,20 @@ body::before {
     animation: fadeIn 0.5s ease-in;
     position: relative;
     overflow: hidden;
+}
+
+.story-page::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 182, 193, 0.15) 0%, transparent 70%),
+                radial-gradient(circle, rgba(173, 216, 230, 0.15) 0%, transparent 70%),
+                radial-gradient(circle, rgba(221, 160, 221, 0.15) 0%, transparent 70%);
+    animation: shimmer 6s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .story-page.active {
