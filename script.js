@@ -1,3 +1,9 @@
+console.log('🚀 script.js is loading...');
+
+// Test if we can see the claude-ai.js file
+console.log('📂 Testing file structure...');
+console.log('📋 Current page:', window.location.href);
+
 class DoctorStorybookApp {
     constructor() {
         this.mediaRecorder = null;
@@ -557,35 +563,58 @@ document.addEventListener('DOMContentLoaded', () => {
     window.storybookApp = app;
 });
 
+// Listen for AI ready event
+document.addEventListener('aiReady', (event) => {
+    console.log('🎉 AI Ready event received!', event.detail);
+});
+
 // Verify AI is loaded when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
     console.log('📱 DOM loaded, verifying AI availability...');
     
+    // Detailed debugging
+    console.log('🔍 window.aiStoryGenerator exists:', !!window.aiStoryGenerator);
+    console.log('🔍 window.AI_READY flag:', window.AI_READY);
+    console.log('🔍 CLAUDE_API_CONFIG exists:', typeof CLAUDE_API_CONFIG !== 'undefined');
+    console.log('🔍 AIStoryGenerator class exists:', typeof AIStoryGenerator !== 'undefined');
+    
     // Check if claude-ai.js loaded properly
     if (typeof CLAUDE_API_CONFIG === 'undefined') {
-        console.error('❌ CLAUDE_API_CONFIG not found - claude-ai.js not loaded!');
+        console.error('❌ CLAUDE_API_CONFIG not found - claude-ai.js script tag missing or failed to load!');
+        console.error('📋 Check: 1) Is claude-ai.js in the right folder? 2) Is the script tag correct?');
         return;
     }
     
     if (typeof AIStoryGenerator === 'undefined') {
-        console.error('❌ AIStoryGenerator class not found - claude-ai.js not loaded!');
+        console.error('❌ AIStoryGenerator class not found - JavaScript error in claude-ai.js!');
         return;
     }
     
     // Check if AI instance exists
-    if (window.aiStoryGenerator) {
-        console.log('✅ AI Story Generator is ready!');
+    if (window.aiStoryGenerator && window.AI_READY) {
+        console.log('✅ AI Story Generator is ready and working!');
         console.log('🔍 AI methods:', typeof window.aiStoryGenerator.generateKidFriendlyStory);
     } else {
-        console.log('⚠️ AI Story Generator instance not found - checking in 500ms...');
+        console.log('⚠️ AI Story Generator not ready yet - waiting...');
+        console.log('🔍 aiStoryGenerator exists:', !!window.aiStoryGenerator);
+        console.log('🔍 AI_READY flag:', window.AI_READY);
         
-        // Give it a moment and check again
-        setTimeout(() => {
-            if (window.aiStoryGenerator) {
-                console.log('✅ AI Story Generator is now ready!');
-            } else {
-                console.error('❌ AI Story Generator still not ready');
+        // Wait and check again
+        let attempts = 0;
+        const checkAI = () => {
+            attempts++;
+            if (window.aiStoryGenerator && window.AI_READY) {
+                console.log('✅ AI Story Generator is now ready after', attempts, 'attempts!');
+                return;
             }
-        }, 500);
+            if (attempts < 10) {
+                setTimeout(checkAI, 200);
+            } else {
+                console.error('❌ AI Story Generator failed to initialize after 2 seconds');
+                console.error('🔍 Final check - aiStoryGenerator:', !!window.aiStoryGenerator);
+                console.error('🔍 Final check - AI_READY:', window.AI_READY);
+            }
+        };
+        setTimeout(checkAI, 100);
     }
 });

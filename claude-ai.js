@@ -220,6 +220,15 @@ try {
     window.aiStoryGenerator = new AIStoryGenerator(CLAUDE_API_CONFIG.apiKey);
     console.log('✅ AI Story Generator initialized successfully');
     console.log('🎯 Generator methods available:', Object.getOwnPropertyNames(Object.getPrototypeOf(window.aiStoryGenerator)));
+    
+    // Set a flag to indicate AI is ready
+    window.AI_READY = true;
+    
+    // Dispatch a custom event to notify other scripts
+    if (typeof document !== 'undefined') {
+        document.dispatchEvent(new CustomEvent('aiReady', { detail: { generator: window.aiStoryGenerator } }));
+    }
 } catch (error) {
     console.error('❌ Failed to initialize AI Story Generator:', error);
+    window.AI_READY = false;
 }
