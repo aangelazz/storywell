@@ -1,0 +1,43 @@
+<!-- storybook-view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Read My Story - Storywell</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <button class="back-btn" onclick="window.location.href='storybook.html'">← Back to Stories</button>
+      <h1 class="app-title" id="storyTitle">📖 My Story</h1>
+    </header>
+
+    <main class="main-content">
+      <section class="story-viewer" id="storyViewer">
+        <div class="storybook-container">
+          <div class="storybook-header">
+            <div class="story-controls">
+              <button id="prevPageBtn" class="page-btn">⬅️ Previous</button>
+              <span class="page-counter" id="pageCounter">Page 1 of 1</span>
+              <button id="nextPageBtn" class="page-btn">Next ➡️</button>
+            </div>
+          </div>
+          <div class="storybook-pages" id="storybookPages"></div>
+          <div class="story-actions">
+            <button id="shareStoryBtn" class="action-btn share-btn">📤 Share</button>
+            <button id="deleteStoryBtn" class="action-btn delete-btn">🗑️ Delete</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Made with ❤️ to help kids remember their brave doctor visits!</p>
+    </footer>
+  </div>
+
+  <script src="storybook-viewer.js"></script>
+</body>
+</html>
