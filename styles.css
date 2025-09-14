@@ -16,7 +16,7 @@
 }
 
 body {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'sans-serif', Verdana;
     background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 25%, #7fcdcd 50%, #81c3d7 75%, #86b7df 100%);
     min-height: 100vh;
     color: #333;
@@ -127,7 +127,7 @@ body::before {
 }
 
 .storywell-title {
-    font-family: 'Borel', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 5rem;
     color: #2c5aa0;
     margin: 40px 0 30px 0;
@@ -137,7 +137,7 @@ body::before {
 }
 
 .description-text {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 1.3rem;
     color: #2c5aa0;
     line-height: 1.5;
@@ -161,7 +161,7 @@ body::before {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(127, 179, 211, 0.3);
-    font-family: 'Comic Neue', cursive;
+    font-family: ' sans-serif', Verdana;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -189,7 +189,7 @@ body::before {
 .wishing-well-container {
     position: relative;
     width: 70%;
-    height: 80%;
+    height: 60%;
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -201,21 +201,21 @@ body::before {
 }
 
 .wishing-well-image {
-    width: 100%;
+    width: 83%;
 }
 
 .storybook-btn {
     background: linear-gradient(45deg, #88d8c0, #7fb3d3); /* Initial gradient */
     border: none;
-    border-radius: 30px; /* Rounded corners */
-    padding: 15px 30px; /* Padding for a prominent button */
+    border-radius: 30px;
+    padding: 15px 30px;
     font-size: 1.2rem; /* Font size matching the design */
     font-weight: bold;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease; /* Smooth transition for hover effects */
     box-shadow: 0 4px 15px rgba(127, 179, 211, 0.3); /* Subtle shadow */
-    font-family: 'Comic Neue', cursive;
+    font-family: 'sans-serif', Verdana;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,10 +246,10 @@ body::before {
 
 /* Card Styles for Functional Interface */
 .card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
     padding: 30px;
-    margin-bottom: 30px;
+    margin: 30px;
     box-shadow: 0 10px 30px rgba(44, 90, 160, 0.15);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.6);
@@ -263,7 +263,7 @@ body::before {
 }
 
 .card-header h2 {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 2rem;
     color: #2c5aa0;
     margin-bottom: 10px;
@@ -428,7 +428,7 @@ body::before {
 }
 
 .storybook-header h2 {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 2.2rem;
     color: #4a5568;
     margin-bottom: 20px;
@@ -517,7 +517,7 @@ body::before {
 }
 
 .story-title {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 1.8rem;
     color: #d4691a;
     margin-bottom: 20px;
@@ -605,7 +605,7 @@ body::before {
 }
 
 .app-title {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 2rem;
     color: #fff;
     text-align: center;
@@ -645,7 +645,7 @@ body::before {
 }
 
 .story-card-header h3 {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     color: #4a5568;
     margin: 0;
     font-size: 1.2rem;
@@ -697,7 +697,7 @@ body::before {
 }
 
 .empty-state h3 {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'sans-serif', Verdana;
     font-size: 1.5rem;
     margin-bottom: 10px;
     color: #4a5568;
