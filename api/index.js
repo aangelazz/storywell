@@ -1,96 +1,97 @@
-const express = require('express');
-const cors = require('cors');
-
-const app = express();
-
-// Middleware
-app.use(cors({
-    origin: '*', // Allow all origins for demo
-    credentials: true
-}));
-app.use(express.json());
-
-// Claude API configuration
+// Vercel Serverless Function
 const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY;
 const CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages';
 
-// Generate story endpoint
-app.post('/api/generate-story', async (req, res) => {
-    try {
-        console.log('📥 Received story generation request');
-        const { medicalText } = req.body;
-        
-        if (!medicalText) {
-            return res.status(400).json({ error: 'Medical text is required' });
-        }
+export default async function handler(req, res) {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-        console.log('🤖 Calling Claude API...');
-        
-        const prompt = createKidFriendlyPrompt(medicalText);
-        
-        const response = await fetch(CLAUDE_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': CLAUDE_API_KEY,
-                'anthropic-version': '2023-06-01'
-            },
-            body: JSON.stringify({
-                model: 'claude-3-haiku-20240307',
-                max_tokens: 2000,
-                messages: [{
-                    role: 'user',
-                    content: prompt
-                }]
-            })
-        });
-
-        if (!response.ok) {
-            console.error('❌ Claude API error:', response.status, response.statusText);
-            throw new Error(`Claude API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('✅ Claude API response received');
-        
-        // Parse the response
-        const storyPages = parseStoryResponse(data.content[0].text);
-        
-        res.json({
-            success: true,
-            pages: storyPages,
-            rawResponse: data.content[0].text
-        });
-
-    } catch (error) {
-        console.error('❌ Error generating story:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message,
-            fallback: true
-        });
+    // Handle preflight OPTIONS request
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
     }
-});
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-    res.json({ 
-        status: 'healthy', 
-        timestamp: new Date().toISOString(),
-        apiKeyConfigured: !!CLAUDE_API_KEY
-    });
-});
+    // Health check endpoint
+    if (req.method === 'GET') {
+        res.json({ 
+            status: 'healthy', 
+            timestamp: new Date().toISOString(),
+            apiKeyConfigured: !!CLAUDE_API_KEY
+        });
+        return;
+    }
 
-// Root endpoint
-app.get('/', (req, res) => {
-    res.json({ 
-        message: 'Storywell Backend API',
-        endpoints: ['/api/health', '/api/generate-story'],
-        status: 'running'
-    });
-});
+    // Story generation endpoint
+    if (req.method === 'POST') {
+        try {
+            console.log('📥 Received story generation request');
+            const { medicalText } = req.body;
+            
+            if (!medicalText) {
+                return res.status(400).json({ error: 'Medical text is required' });
+            }
 
-// Helper functions (same as before)
+            if (!CLAUDE_API_KEY) {
+                return res.status(500).json({ error: 'Claude API key not configured' });
+            }
+
+            console.log('🤖 Calling Claude API...');
+            
+            const prompt = createKidFriendlyPrompt(medicalText);
+            
+            const response = await fetch(CLAUDE_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': CLAUDE_API_KEY,
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify({
+                    model: 'claude-3-haiku-20240307',
+                    max_tokens: 2000,
+                    messages: [{
+                        role: 'user',
+                        content: prompt
+                    }]
+                })
+            });
+
+            if (!response.ok) {
+                console.error('❌ Claude API error:', response.status, response.statusText);
+                throw new Error(`Claude API error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('✅ Claude API response received');
+            
+            // Parse the response
+            const storyPages = parseStoryResponse(data.content[0].text);
+            
+            res.json({
+                success: true,
+                pages: storyPages,
+                rawResponse: data.content[0].text
+            });
+
+        } catch (error) {
+            console.error('❌ Error generating story:', error);
+            res.status(500).json({
+                success: false,
+                error: error.message,
+                fallback: true
+            });
+        }
+        return;
+    }
+
+    // Method not allowed
+    res.status(405).json({ error: 'Method not allowed' });
+}
+
+// Helper functions
 function createKidFriendlyPrompt(medicalText) {
     return `You are a magical storyteller who helps children understand their doctor visits. Transform this medical conversation into a kid-friendly storybook with 4-6 pages.
 
@@ -171,6 +172,3 @@ function createFallbackStory(originalText) {
         illustration: "🏥"
     }];
 }
-
-// For Vercel, export the app
-module.exports = app;
