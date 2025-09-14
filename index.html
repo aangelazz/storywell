@@ -6,10 +6,17 @@
     <title>My Doctor Visit Storybook 📚✨</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Borel:wght@400&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <img src="images/logo.png" alt="Storywell Logo" class="logo">
+        </header>
+
         <!-- Design Layout Matching Image -->
         <div class="design-layout">
             <!-- Top Stars -->
@@ -53,58 +60,13 @@
             <!-- Right Side - Wishing Well -->
             <div class="right-content">
                 <div class="wishing-well-container">
-                    <!-- Well Structure -->
-                    <svg class="wishing-well-svg" viewBox="0 0 400 500">
-                        <!-- Roof -->
-                        <path d="M50 150 L350 150 L300 50 L100 50 Z" fill="none" stroke="#4a90e2" stroke-width="3"/>
-                        <path d="M60 140 L340 140 L290 60 L110 60 Z" fill="none" stroke="#4a90e2" stroke-width="2"/>
-                        
-                        <!-- Roof Support Beams -->
-                        <line x1="120" y1="60" x2="120" y2="140" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="160" y1="60" x2="160" y2="140" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="200" y1="60" x2="200" y2="140" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="240" y1="60" x2="240" y2="140" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="280" y1="60" x2="280" y2="140" stroke="#4a90e2" stroke-width="2"/>
-                        
-                        <!-- Well Body (Cylinder) -->
-                        <ellipse cx="200" cy="450" rx="120" ry="30" fill="none" stroke="#4a90e2" stroke-width="3"/>
-                        <line x1="80" y1="450" x2="80" y2="200" stroke="#4a90e2" stroke-width="3"/>
-                        <line x1="320" y1="450" x2="320" y2="200" stroke="#4a90e2" stroke-width="3"/>
-                        <ellipse cx="200" cy="200" rx="120" ry="30" fill="none" stroke="#4a90e2" stroke-width="3"/>
-                        
-                        <!-- Stone Pattern -->
-                        <line x1="80" y1="220" x2="320" y2="220" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="250" x2="320" y2="250" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="280" x2="320" y2="280" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="310" x2="320" y2="310" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="340" x2="320" y2="340" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="370" x2="320" y2="370" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="400" x2="320" y2="400" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="80" y1="430" x2="320" y2="430" stroke="#4a90e2" stroke-width="1"/>
-                        
-                        <!-- Vertical Stone Lines -->
-                        <line x1="120" y1="200" x2="120" y2="450" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="160" y1="200" x2="160" y2="450" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="240" y1="200" x2="240" y2="450" stroke="#4a90e2" stroke-width="1"/>
-                        <line x1="280" y1="200" x2="280" y2="450" stroke="#4a90e2" stroke-width="1"/>
-                        
-                        <!-- Crank Handle -->
-                        <circle cx="280" cy="180" r="25" fill="none" stroke="#4a90e2" stroke-width="3"/>
-                        <line x1="255" y1="180" x2="305" y2="180" stroke="#4a90e2" stroke-width="4"/>
-                        <line x1="280" y1="155" x2="280" y2="205" stroke="#4a90e2" stroke-width="2"/>
-                        
-                        <!-- Bucket -->
-                        <ellipse cx="320" cy="350" rx="25" ry="8" fill="none" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="295" y1="350" x2="295" y2="370" stroke="#4a90e2" stroke-width="2"/>
-                        <line x1="345" y1="350" x2="345" y2="370" stroke="#4a90e2" stroke-width="2"/>
-                        <ellipse cx="320" cy="370" rx="25" ry="8" fill="none" stroke="#4a90e2" stroke-width="2"/>
-                    </svg>
+                    <img src="images/well.png" alt="Wishing Well" class="wishing-well-image">
                 </div>
             </div>
         </div>
         
-        <!-- Functional Interface (Hidden by default) -->
-        <main class="main-content" id="functionalInterface" style="display: none;">
+        <!-- Functional Interface -->
+        <main class="main-content" id="functionalInterface">
             <!-- Step 1: Recording Section -->
             <section class="recording-section" id="recordingSection">
                 <div class="card">
@@ -118,11 +80,11 @@
                             <span class="btn-text">Start Recording</span>
                         </button>
                         <div class="recording-status" id="recordingStatus">
-                            <div class="pulse-animation" id="pulseAnimation" style="display: none;"></div>
+                            <div class="pulse-animation" id="pulseAnimation"></div>
                             <span id="statusText">Ready to record!</span>
                         </div>
                     </div>
-                    <div class="audio-preview" id="audioPreview" style="display: none;">
+                    <div class="audio-preview" id="audioPreview">
                         <h3>🎵 Your Recording:</h3>
                         <audio controls id="audioPlayback"></audio>
                         <button id="retryBtn" class="retry-btn">🔄 Record Again</button>
@@ -132,7 +94,7 @@
             </section>
 
             <!-- Step 2: Processing Section -->
-            <section class="processing-section" id="processingSection" style="display: none;">
+            <section class="processing-section" id="processingSection">
                 <div class="card">
                     <div class="card-header">
                         <h2>🪄 Creating Your Magical Story...</h2>
@@ -154,7 +116,7 @@
             </section>
 
             <!-- Step 3: Storybook Display -->
-            <section class="storybook-section" id="storybookSection" style="display: none;">
+            <section class="storybook-section" id="storybookSection">
                 <div class="storybook-container">
                     <div class="storybook-header">
                         <h2>📖 Your Amazing Doctor Visit Story!</h2>
@@ -176,7 +138,6 @@
             </section>
         </main>
 
-        
         <!-- Footer -->
         <footer class="footer">
             <p>Made with ❤️ to help kids remember their brave doctor visits!</p>
